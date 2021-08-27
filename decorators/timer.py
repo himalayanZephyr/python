@@ -1,13 +1,16 @@
 import time
+from functools import wraps
 
 def timeit(func):
+
+    @wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.time()
         results = func(*args, **kwargs)
         end_time = time.time()
         print(f"Time elapsed for {func.__name__} : { end_time - start_time}")
-        print(results)
-        print("="*50)
+        return results
+
     return wrapper
 
 
@@ -31,6 +34,10 @@ def cube(nums):
 if __name__ == "__main__":
     nums = range(1,100)
 
-    square(nums)
-
-    cube(nums)
+    print(square(nums))
+    print("="*50)
+    print(cube(nums))
+    print("="*50)
+    print("Function names :")
+    print(square.__name__)
+    print(cube.__name__)
